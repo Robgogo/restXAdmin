@@ -29,7 +29,7 @@ class _UserImagePickerState extends State<UserImagePicker> {
     return Column(
       children: [
         CircleAvatar(
-          radius: 40,
+          radius: 60,
           backgroundColor: Colors.grey,
           backgroundImage:
               _pickedImage != null ? FileImage(_pickedImage) : null,

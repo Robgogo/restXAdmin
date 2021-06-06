@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+import '../../screens/menu/edit_menu_screen.dart';
 
 class MenuItem extends StatelessWidget {
   final String imgUrl;
@@ -27,12 +30,20 @@ class MenuItem extends StatelessWidget {
           children: [
             IconButton(
               icon: Icon(Icons.edit),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context)
+                    .pushNamed(EditMenuScreen.routeName, arguments: menuId);
+              },
               color: Theme.of(context).primaryColor,
             ),
             IconButton(
               icon: Icon(Icons.delete),
-              onPressed: () {},
+              onPressed: () {
+                FirebaseFirestore.instance
+                    .collection("menu")
+                    .doc(menuId)
+                    .delete();
+              },
             ),
           ],
         ),

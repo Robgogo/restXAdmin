@@ -115,6 +115,9 @@ class _AddMenuFormState extends State<AddMenuForm> {
                       _price = double.parse(value);
                     },
                   ),
+                  SizedBox(
+                    height: 12,
+                  ),
                   UserImagePicker(_pickImage),
                   SizedBox(
                     height: 12,

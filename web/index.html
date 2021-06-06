@@ -40,6 +40,26 @@
       });
     }
   </script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-auth.js"></script>
+  <script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+      apiKey: "AIzaSyCVJssv62bked9vcaItFnAF2YxPgKRlFss",
+      authDomain: "restx-e49db.firebaseapp.com",
+      projectId: "restx-e49db",
+      storageBucket: "restx-e49db.appspot.com",
+      messagingSenderId: "136431089503",
+      appId: "1:136431089503:web:9dc5fdbf477882ff6b28ea",
+      measurementId: "G-PJ7781JNZE"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
   <script src="main.dart.js" type="application/javascript"></script>
 </body>
 </html>
