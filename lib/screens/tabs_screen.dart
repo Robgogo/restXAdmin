@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'menu/menu_screen.dart';
-import '../screens/orders_screen.dart';
+import 'orders/orders_screen.dart';
 import 'menu/add_menu_screen.dart';
 
 class TabsScreen extends StatefulWidget {

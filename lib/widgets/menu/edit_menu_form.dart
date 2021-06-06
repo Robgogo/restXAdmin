@@ -56,13 +56,11 @@ class _EditMenuFormState extends State<EditMenuForm> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.menuItemId);
     CollectionReference menuItem =
         FirebaseFirestore.instance.collection('menu');
     return FutureBuilder(
         future: menuItem.doc(widget.menuItemId).get(),
         builder: (context, snapshot) {
-          print("ghg");
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           }

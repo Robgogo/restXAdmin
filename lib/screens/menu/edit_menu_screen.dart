@@ -84,7 +84,6 @@ class _EditMenuScreenState extends State<EditMenuScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(_id);
     return Scaffold(
       appBar: AppBar(
         title: Text('Edit menu Item'),

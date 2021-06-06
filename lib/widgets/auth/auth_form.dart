@@ -93,12 +93,12 @@ class _AuthFormState extends State<AuthForm> {
                       key: ValueKey('username'),
                       validator: (value) {
                         if (value.isEmpty || value.length < 4) {
-                          return "Username length must be atleast 4 characters!";
+                          return "Restaurant name length must be atleast 4 characters!";
                         }
                         return null;
                       },
                       decoration: InputDecoration(
-                        labelText: 'Username',
+                        labelText: 'Restaurant name',
                       ),
                       onSaved: (value) {
                         _userName = value;
