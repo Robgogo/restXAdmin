@@ -1,12 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 import '../../widgets/menu/add_menu_form.dart';
+import '../../services/menu_service.dart';
 
 class AddMenuItemScreen extends StatefulWidget {
   static const routeName = '/add-menu-item';
@@ -16,6 +14,7 @@ class AddMenuItemScreen extends StatefulWidget {
 }
 
 class _AddMenuItemScreenState extends State<AddMenuItemScreen> {
+  var _menuServ = MenuService();
   var _isLoading = false;
   void _submitForm(
     String name,
@@ -28,31 +27,7 @@ class _AddMenuItemScreenState extends State<AddMenuItemScreen> {
       setState(() {
         _isLoading = true;
       });
-      final user = FirebaseAuth.instance.currentUser;
-      final userData = await FirebaseFirestore.instance
-          .collection("users")
-          .doc(user.uid)
-          .get();
-
-      final ref = FirebaseStorage.instance
-          .ref()
-          .child('menu_images')
-          .child('${user.uid}-${name}.jpg');
-
-      UploadTask upTask = ref.putFile(image);
-
-      final imgUrl = await (await upTask).ref.getDownloadURL();
-
-      FirebaseFirestore.instance.collection('menu').add(
-        {
-          'name': name,
-          'price': price,
-          'ingredients': ingredients,
-          'image': imgUrl,
-          'restId': user.uid,
-          'restName': userData.data()['username'],
-        },
-      );
+      await _menuServ.addMenuItem(name, price, ingredients, image);
       Navigator.of(context).pop();
     } on PlatformException catch (err) {
       var message = "An error occured, please check your credentials!";
@@ -61,7 +36,7 @@ class _AddMenuItemScreenState extends State<AddMenuItemScreen> {
         message = err.message;
       }
 
-      Scaffold.of(ctx).showSnackBar(
+      ScaffoldMessenger.of(ctx).showSnackBar(
         SnackBar(
           content: Text(message),
           backgroundColor: Theme.of(context).errorColor,

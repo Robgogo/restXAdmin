@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../services/menu_service.dart';
 import '../../widgets/menu/menu_item.dart';
 
 class MenuScreen extends StatelessWidget {
+  final _menuServ = MenuService();
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser;
     return StreamBuilder(
-      stream: FirebaseFirestore.instance
-          .collection("menu")
-          .where('restId', isEqualTo: user.uid)
-          .snapshots(),
+      stream: _menuServ.streamobject,
       builder: (ctx, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(

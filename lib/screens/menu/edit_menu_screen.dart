@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 import '../../widgets/menu/edit_menu_form.dart';
+import '../../services/menu_service.dart';
 
 class EditMenuScreen extends StatefulWidget {
   static const routeName = '/edit-menu-item';
@@ -16,6 +16,7 @@ class EditMenuScreen extends StatefulWidget {
 }
 
 class _EditMenuScreenState extends State<EditMenuScreen> {
+  var _menuServ = MenuService();
   var _isInit = true;
   String _id = 'dede';
 
@@ -42,21 +43,7 @@ class _EditMenuScreenState extends State<EditMenuScreen> {
       setState(() {
         _isLoading = true;
       });
-      final user = FirebaseAuth.instance.currentUser;
-      final userData = await FirebaseFirestore.instance
-          .collection("users")
-          .doc(user.uid)
-          .get();
-
-      FirebaseFirestore.instance.collection('menu').doc(id).update(
-        {
-          'name': name,
-          'price': price,
-          'ingredients': ingredients,
-          'restId': user.uid,
-          'restName': userData.data()['username'],
-        },
-      );
+      await _menuServ.editMenuItem(id, name, price, ingredients);
       Navigator.of(context).pop();
     } on PlatformException catch (err) {
       var message = "An error occured, please check your credentials!";
@@ -65,7 +52,7 @@ class _EditMenuScreenState extends State<EditMenuScreen> {
         message = err.message;
       }
 
-      Scaffold.of(ctx).showSnackBar(
+      ScaffoldMessenger.of(ctx).showSnackBar(
         SnackBar(
           content: Text(message),
           backgroundColor: Theme.of(context).errorColor,

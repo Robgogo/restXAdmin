@@ -1,6 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../../services/menu_service.dart';
 import '../../screens/menu/edit_menu_screen.dart';
 
 class MenuItem extends StatelessWidget {
@@ -39,10 +39,7 @@ class MenuItem extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.delete),
               onPressed: () {
-                FirebaseFirestore.instance
-                    .collection("menu")
-                    .doc(menuId)
-                    .delete();
+                MenuService().deleteMenuItem(menuId);
               },
             ),
           ],

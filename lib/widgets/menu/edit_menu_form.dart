@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../pickers/user_image_picker.dart';
+import '../../services/menu_service.dart';
 
 class EditMenuForm extends StatefulWidget {
   final void Function(
@@ -22,20 +22,16 @@ class EditMenuForm extends StatefulWidget {
 }
 
 class _EditMenuFormState extends State<EditMenuForm> {
+  final _menuServ = MenuService();
   final _formKey = GlobalKey<FormState>();
   var _name = '';
   var _ingredients = '';
   var _price = 0.0;
-  File _image;
   var _imgUrl = '';
 
   @override
   void initState() {
     super.initState();
-  }
-
-  void _pickImage(File img) {
-    _image = img;
   }
 
   void _trySubmit() {
@@ -56,10 +52,8 @@ class _EditMenuFormState extends State<EditMenuForm> {
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference menuItem =
-        FirebaseFirestore.instance.collection('menu');
     return FutureBuilder(
-        future: menuItem.doc(widget.menuItemId).get(),
+        future: _menuServ.getMenuItem(widget.menuItemId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
