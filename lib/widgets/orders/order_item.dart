@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class OrderItem extends StatelessWidget {
+  final String id;
   final String name;
   final String orderedBy;
   final String tableId;
@@ -8,6 +10,7 @@ class OrderItem extends StatelessWidget {
   final bool served;
 
   OrderItem({
+    this.id,
     this.name,
     this.orderedBy,
     this.tableId,
@@ -30,13 +33,23 @@ class OrderItem extends StatelessWidget {
             if (!accepted && !served)
               IconButton(
                 icon: Icon(Icons.access_time),
-                onPressed: () {},
+                onPressed: () {
+                  FirebaseFirestore.instance
+                      .collection('orders')
+                      .doc(id)
+                      .update({'accepted': true});
+                },
                 color: Theme.of(context).primaryColor,
               ),
             if (accepted && !served)
               IconButton(
                 icon: Icon(Icons.check),
-                onPressed: () {},
+                onPressed: () {
+                  FirebaseFirestore.instance
+                      .collection('orders')
+                      .doc(id)
+                      .update({'served': true});
+                },
               ),
             Text(!accepted && !served
                 ? "Accept"

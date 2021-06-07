@@ -26,6 +26,7 @@ class OrdersScreen extends StatelessWidget {
           itemBuilder: (ctx, i) => Column(
             children: [
               OrderItem(
+                id: documents[i].id,
                 name: documents[i].data()['name'],
                 orderedBy: documents[i].data()['orderedBy'],
                 tableId: documents[i].data()['table'],

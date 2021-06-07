@@ -6,6 +6,7 @@ import './screens/menu/add_menu_screen.dart';
 import './screens/menu/edit_menu_screen.dart';
 import './screens/auth_screen.dart';
 import './screens/tabs_screen.dart';
+import './screens/tables/tables_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
           routes: {
             AddMenuItemScreen.routeName: (ctx) => AddMenuItemScreen(),
             EditMenuScreen.routeName: (ctx) => EditMenuScreen(),
+            TableScreen.routeName: (ctx) => TableScreen(),
           },
         );
       },

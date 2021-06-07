@@ -1,9 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'menu/menu_screen.dart';
-import 'orders/orders_screen.dart';
-import 'menu/add_menu_screen.dart';
+import './menu/menu_screen.dart';
+import './orders/orders_screen.dart';
+import './menu/add_menu_screen.dart';
+import './tables/tables_screen.dart';
 
 class TabsScreen extends StatefulWidget {
   @override
@@ -37,10 +38,18 @@ class _TabsScreenState extends State<TabsScreen> {
         title: Text(_pages[_selectedPageIndex]['title']),
         actions: [
           IconButton(
-              icon: Icon(Icons.exit_to_app),
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
-              })
+            icon: Icon(Icons.qr_code),
+            onPressed: () {
+              // go to tables screen
+              Navigator.of(context).pushNamed(TableScreen.routeName);
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () {
+              FirebaseAuth.instance.signOut();
+            },
+          ),
         ],
       ),
       // drawer: MainDrawer(),
