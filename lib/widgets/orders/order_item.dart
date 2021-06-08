@@ -1,7 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../../services/orders_servce.dart';
+
 class OrderItem extends StatelessWidget {
+  final _orderService = OrderService();
+
   final String id;
   final String name;
   final String orderedBy;
@@ -22,7 +25,7 @@ class OrderItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(name),
-      subtitle: Text(orderedBy),
+      subtitle: Text('$orderedBy - table: $tableId'),
       leading: CircleAvatar(
         child: Icon(Icons.food_bank),
       ),
@@ -34,21 +37,15 @@ class OrderItem extends StatelessWidget {
               IconButton(
                 icon: Icon(Icons.access_time),
                 onPressed: () {
-                  FirebaseFirestore.instance
-                      .collection('orders')
-                      .doc(id)
-                      .update({'accepted': true});
+                  _orderService.acceptOrder(id);
                 },
                 color: Theme.of(context).primaryColor,
               ),
             if (accepted && !served)
               IconButton(
                 icon: Icon(Icons.check),
-                onPressed: () {
-                  FirebaseFirestore.instance
-                      .collection('orders')
-                      .doc(id)
-                      .update({'served': true});
+                onPressed: () async {
+                  _orderService.serveOrder(id);
                 },
               ),
             Text(!accepted && !served

@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../widgets/orders/order_item.dart';
+import '../../services/orders_servce.dart';
 
 class OrdersScreen extends StatelessWidget {
+  final _orderService = OrderService();
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser;
     return StreamBuilder(
-      stream: FirebaseFirestore.instance
-          .collection("orders")
-          .orderBy('createdAt', descending: true)
-          .where('restId', isEqualTo: user.uid)
-          .snapshots(),
+      stream: _orderService.streamobject,
       builder: (ctx, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
