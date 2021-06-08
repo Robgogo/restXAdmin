@@ -20,6 +20,7 @@ class _AddMenuItemScreenState extends State<AddMenuItemScreen> {
     String name,
     double price,
     String ingredients,
+    String category,
     File image,
     BuildContext ctx,
   ) async {
@@ -27,7 +28,7 @@ class _AddMenuItemScreenState extends State<AddMenuItemScreen> {
       setState(() {
         _isLoading = true;
       });
-      await _menuServ.addMenuItem(name, price, ingredients, image);
+      await _menuServ.addMenuItem(name, price, ingredients, category, image);
       Navigator.of(context).pop();
     } on PlatformException catch (err) {
       var message = "An error occured, please check your credentials!";

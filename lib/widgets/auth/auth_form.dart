@@ -36,7 +36,7 @@ class _AuthFormState extends State<AuthForm> {
     FocusScope.of(context).unfocus();
 
     if (_userImage == null && !_isLogin) {
-      Scaffold.of(context).showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Choos an Image!"),
           backgroundColor: Theme.of(context).errorColor,

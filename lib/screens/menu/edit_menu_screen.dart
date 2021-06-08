@@ -37,13 +37,14 @@ class _EditMenuScreenState extends State<EditMenuScreen> {
     String name,
     double price,
     String ingredients,
+    String category,
     BuildContext ctx,
   ) async {
     try {
       setState(() {
         _isLoading = true;
       });
-      await _menuServ.editMenuItem(id, name, price, ingredients);
+      await _menuServ.editMenuItem(id, name, price, ingredients, category);
       Navigator.of(context).pop();
     } on PlatformException catch (err) {
       var message = "An error occured, please check your credentials!";

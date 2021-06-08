@@ -9,6 +9,7 @@ class AddMenuForm extends StatefulWidget {
     String name,
     double price,
     String ingredients,
+    String category,
     File image,
     BuildContext ctx,
   ) submitHandler;
@@ -25,6 +26,7 @@ class _AddMenuFormState extends State<AddMenuForm> {
   var _ingredients = '';
   var _price = 0.0;
   File _image;
+  String _category = '';
 
   void _pickImage(File img) {
     _image = img;
@@ -35,7 +37,7 @@ class _AddMenuFormState extends State<AddMenuForm> {
     FocusScope.of(context).unfocus();
 
     if (_image == null) {
-      Scaffold.of(context).showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Choos an Image!"),
           backgroundColor: Theme.of(context).errorColor,
@@ -50,6 +52,7 @@ class _AddMenuFormState extends State<AddMenuForm> {
         _name.trim(),
         _price,
         _ingredients,
+        _category,
         _image,
         context,
       );
@@ -114,6 +117,41 @@ class _AddMenuFormState extends State<AddMenuForm> {
                     onSaved: (value) {
                       _price = double.parse(value);
                     },
+                  ),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  Expanded(
+                    child: DropdownButtonFormField<String>(
+                      value: _category,
+                      validator: (String value) {
+                        if (value.isEmpty) {
+                          return 'Choose some text';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Category',
+                      ),
+                      items: [
+                        'starter',
+                        'main dish',
+                        'desert',
+                        'drink',
+                        'wine',
+                      ]
+                          .map((label) => DropdownMenuItem(
+                                child: Text(label.toString()),
+                                value: label,
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _category = value;
+                        });
+                      },
+                    ),
                   ),
                   SizedBox(
                     height: 12,

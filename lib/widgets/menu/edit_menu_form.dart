@@ -11,6 +11,7 @@ class EditMenuForm extends StatefulWidget {
     String name,
     double price,
     String ingredients,
+    String category,
     BuildContext ctx,
   ) submitHandler;
   final bool loading;
@@ -28,6 +29,7 @@ class _EditMenuFormState extends State<EditMenuForm> {
   var _ingredients = '';
   var _price = 0.0;
   var _imgUrl = '';
+  var _category = '';
 
   @override
   void initState() {
@@ -45,6 +47,7 @@ class _EditMenuFormState extends State<EditMenuForm> {
         _name.trim(),
         _price,
         _ingredients.trim(),
+        _category,
         context,
       );
     }
@@ -123,6 +126,41 @@ class _EditMenuFormState extends State<EditMenuForm> {
                           onSaved: (value) {
                             _price = double.parse(value);
                           },
+                        ),
+                        SizedBox(
+                          height: 12,
+                        ),
+                        Expanded(
+                          child: DropdownButtonFormField<String>(
+                            value: _category,
+                            validator: (String value) {
+                              if (value.isEmpty) {
+                                return 'Choose some text';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Category',
+                            ),
+                            items: [
+                              'starter',
+                              'main dish',
+                              'desert',
+                              'drink',
+                              'wine',
+                            ]
+                                .map((label) => DropdownMenuItem(
+                                      child: Text(label.toString()),
+                                      value: label,
+                                    ))
+                                .toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                _category = value;
+                              });
+                            },
+                          ),
                         ),
                         SizedBox(
                           height: 12,

@@ -21,6 +21,7 @@ class MenuService {
     String name,
     double price,
     String ingredients,
+    String category,
     File image,
   ) async {
     final userData = await auth.getUserData();
@@ -39,6 +40,7 @@ class MenuService {
         'name': name,
         'price': price,
         'ingredients': ingredients,
+        'category': category,
         'image': imgUrl,
         'restId': user.uid,
         'restName': userData.data()['username'],
@@ -51,6 +53,7 @@ class MenuService {
     String name,
     double price,
     String ingredients,
+    String category,
   ) async {
     final userData = await auth.getUserData();
 
@@ -59,6 +62,7 @@ class MenuService {
         'name': name,
         'price': price,
         'ingredients': ingredients,
+        'category': category,
         'restId': user.uid,
         'restName': userData.data()['username'],
       },
