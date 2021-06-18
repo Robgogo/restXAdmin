@@ -7,15 +7,13 @@ class OrderItem extends StatelessWidget {
 
   final String id;
   final String name;
-  final String orderedBy;
-  final String tableId;
+  final int tableId;
   final bool accepted;
   final bool served;
 
   OrderItem({
     this.id,
     this.name,
-    this.orderedBy,
     this.tableId,
     this.accepted,
     this.served,
@@ -25,7 +23,7 @@ class OrderItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(name),
-      subtitle: Text('$orderedBy - table: $tableId'),
+      subtitle: Text('table: ${tableId.toString()}'),
       leading: CircleAvatar(
         child: Icon(Icons.food_bank),
       ),

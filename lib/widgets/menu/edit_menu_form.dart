@@ -67,6 +67,7 @@ class _EditMenuFormState extends State<EditMenuForm> {
           _ingredients = data['ingredients'];
           _price = data['price'];
           _imgUrl = data['image'];
+          _category = data['category'];
           return Center(
             child: Card(
               margin: EdgeInsets.all(20),
@@ -130,37 +131,35 @@ class _EditMenuFormState extends State<EditMenuForm> {
                         SizedBox(
                           height: 12,
                         ),
-                        Expanded(
-                          child: DropdownButtonFormField<String>(
-                            value: _category,
-                            validator: (String value) {
-                              if (value.isEmpty) {
-                                return 'Choose some text';
-                              }
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'Category',
-                            ),
-                            items: [
-                              'starter',
-                              'main dish',
-                              'desert',
-                              'drink',
-                              'wine',
-                            ]
-                                .map((label) => DropdownMenuItem(
-                                      child: Text(label.toString()),
-                                      value: label,
-                                    ))
-                                .toList(),
-                            onChanged: (value) {
-                              setState(() {
-                                _category = value;
-                              });
-                            },
+                        DropdownButtonFormField<String>(
+                          value: _category,
+                          validator: (String value) {
+                            if (value.isEmpty) {
+                              return 'Choose some text';
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Category',
                           ),
+                          items: [
+                            'starter',
+                            'main dish',
+                            'desert',
+                            'drink',
+                            'wine',
+                          ]
+                              .map((label) => DropdownMenuItem<String>(
+                                    child: Text(label),
+                                    value: label,
+                                  ))
+                              .toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              _category = value;
+                            });
+                          },
                         ),
                         SizedBox(
                           height: 12,

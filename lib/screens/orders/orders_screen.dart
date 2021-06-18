@@ -16,6 +16,7 @@ class OrdersScreen extends StatelessWidget {
           );
         }
         final documents = snapshot.data.docs;
+        print(documents.length);
         return ListView.builder(
           itemCount: documents.length,
           itemBuilder: (ctx, i) => Column(
@@ -23,7 +24,6 @@ class OrdersScreen extends StatelessWidget {
               OrderItem(
                 id: documents[i].id,
                 name: documents[i].data()['name'],
-                orderedBy: documents[i].data()['orderedBy'],
                 tableId: documents[i].data()['table'],
                 accepted: documents[i].data()['accepted'],
                 served: documents[i].data()['served'],

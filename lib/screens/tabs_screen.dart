@@ -36,7 +36,6 @@ class _TabsScreenState extends State<TabsScreen>
       setState(() {
         _selectedIndex = _controller.index;
       });
-      print("Selected Index: " + _controller.index.toString());
     });
   }
 
