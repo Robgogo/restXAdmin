@@ -101,7 +101,7 @@ class _TableScreenState extends State<TableScreen> {
 
                         setState(() {
                           _dataString =
-                              "https://rest-x-client.surge.sh/#/?table=${_textController.text}&restId=${user.uid}";
+                              "https://rest-x-client-v2.surge.sh/#/menu?table=${_textController.text}&restId=${user.uid}";
                           _inputErrorText = null;
                         });
                       },
